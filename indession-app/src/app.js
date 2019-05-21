@@ -1,65 +1,49 @@
-console.log('App.js is runing');
-
-var app= {
-    title : 'Indessin App',
-    subtitle :'App Module list',
-    options:[]
-}
-
-const onSubmitForm  = (e) =>{
-    e.preventDefault()
-    const option = e.target.elements.option.value
-
-
-    if(option){
-        app.options.push(option)
-         e.target.elements.option.value = ''
-         render()
+class Header extends React.Component{
+    render(){
+        return (
+            <div>
+                <h1>Indecision</h1>
+                <h2>Put your life in the hands of computer</h2>
+            </div>
+        )
     }
-
 }
 
-const resetList = () =>{
-    console.log('Reseted')
-    app.options = []
-    render()
+class Action extends React.Component{
+    render(){
+        return <button>What Shoud I do?</button>
+    }
 }
 
-
-var appRoot = document.getElementById('app');
-
-
-const render = () =>{
-
-    const template = (
-        <div>
-            <h1>{app.title} </h1> 
-            <h3>{app.subtitle}</h3>
-            <p>{app.options.length}</p>
-
-            <button onClick={resetList}>Reset List</button>
-        
-            <ol>
-               {
-                app.options.map((list)=> <li key={list}>{list.toUpperCase()}</li>)
-               }
-            </ol>
-
-            <form onSubmit={onSubmitForm}> 
-            <input type="text" name="option"  />
-            <button>Add Option</button>
-            </form>
-        </div>);
-
-        ReactDOM.render(template, appRoot);
+class Options extends React.Component{
+    render(){
+        return(
+            <div>
+                Options component here
+            </div>
+        )
+    }
 }
 
-render()
+class AddOption extends React.Component{
+    render(){
+        return (
+            <div>
+                AddOption component here
+            </div>
+        )
+    }
+}
+const jsx= (
+    <div>
+    <h1>Title</h1>
+    <Header />
+    <Action />
+    <Options />
+    <AddOption />
+    
+    </div>
+)
 
 
-
-
-
-
-
-
+ReactDOM.render(jsx, document.getElementById('app'))
