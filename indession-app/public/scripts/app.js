@@ -1,9 +1,13 @@
-console.log('App.js is runing')
+'use strict';
 
+console.log('App.js is runing a');
 
-var template = <p>This jsx form app.js</p>;
+var template = React.createElement(
+  'p',
+  null,
+  'Does this change '
+);
 
+var appRoot = document.getElementById('app');
 
-var appRoot = document.getElementById('app')
-
-ReactDom.render(template, appRoot);
+ReactDOM.render(template, appRoot);
