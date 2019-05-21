@@ -1,55 +1,62 @@
 console.log('App.js is runing');
 
-
 var app= {
     title : 'Indessin App',
-    subtitle :'App Module list'
+    subtitle :'App Module list',
+    options:[]
 }
 
-var template = (
-<div>
-    <h1>{app.title} </h1> 
-    <h3>{app.subtitle}</h3>
-    <ol>
-        <li>Add note</li>
-        <li>Remove note</li>
-    </ol>
-</div>);
+const onSubmitForm  = (e) =>{
+    e.preventDefault()
+    const option = e.target.elements.option.value
 
-let counter = 0
 
-function addOne(){
-    counter++;
-    renderCounterApp()
+    if(option){
+        app.options.push(option)
+         e.target.elements.option.value = ''
+         render()
+    }
+
 }
-function minusOne(){
-    counter--;
-    renderCounterApp()
+
+const resetList = () =>{
+    console.log('Reseted')
+    app.options = []
+    render()
 }
-function reset(){
-    counter=0;
-    renderCounterApp()
-}
+
 
 var appRoot = document.getElementById('app');
 
-const renderCounterApp = ()=>{
 
-    var templatetwo = (
+const render = () =>{
+
+    const template = (
         <div>
-            <h1>Count: {counter}</h1>
-            <button onClick={addOne}>+1</button>
-            <button onClick={minusOne}>-1</button>
-            <button onClick={reset}>Reset</button>
-        </div>
-    
-    );
+            <h1>{app.title} </h1> 
+            <h3>{app.subtitle}</h3>
+            <p>{app.options.length}</p>
 
-    ReactDOM.render(templatetwo, appRoot);
+            <button onClick={resetList}>Reset List</button>
+        
+            <ol>
+               {
+                app.options.map((list)=> <li key={list}>{list.toUpperCase()}</li>)
+               }
+            </ol>
 
+            <form onSubmit={onSubmitForm}> 
+            <input type="text" name="option"  />
+            <button>Add Option</button>
+            </form>
+        </div>);
+
+        ReactDOM.render(template, appRoot);
 }
 
-renderCounterApp()
+render()
+
+
 
 
 
