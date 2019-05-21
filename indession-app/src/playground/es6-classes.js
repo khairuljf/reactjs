@@ -19,7 +19,8 @@ class Student extends Person{
             return !!this.dept
         }
         getDescription(){
-            return 'Testing'
+           let description =  super.getDescription()
+           return description
         }
 
 }
@@ -27,7 +28,7 @@ class Student extends Person{
 
 const student = new Student('rubel', 26, 'Computer Science')
 
-console.log(student.hasDept())
+console.log(student.getDescription())
 
 const other = new Student('khairul', 20)    
 
