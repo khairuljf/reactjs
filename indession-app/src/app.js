@@ -1,16 +1,33 @@
 
 class IndesionApp extends React.Component{
+
+    constructor(props){
+        super(props)
+        this.handleDeleteOptions=this.handleDeleteOptions.bind(this)
+        this.state = {
+            options:['one', 'two', 'three']
+        };
+    }
+
+    handleDeleteOptions(){
+        this.setState(()=>{
+            return {
+                options:[]
+            }
+        })
+        console.log('Deleted')
+    }
+
     render(){
         const title = 'Indecision';
         const subtitle = 'Put your life in the hands of computer';
-        const options = ['one', 'two', 'three'];
 
         return (
             <div>
                 <Header title ={title} subtitle = {subtitle} />
-                <Action />
-                <Options   option={options} />
-                <AddOption option={options}/>
+                <Action hasOptions= {this.state.options.length>0} />
+                <Options   options={this.state.options}  deleteOptions={this.handleDeleteOptions} />
+                <AddOption option={this.state.options}/>
             </div>
         )
     }
@@ -35,8 +52,11 @@ class Action extends React.Component{
     render(){
         return (
             <div>
-            <button  onClick={this.WhatFunc}>What Shoud I do?</button>
-            
+            <button 
+             onClick={this.WhatFunc}
+             disabled={!this.props.hasOptions}
+             >
+            What Shoud I do?</button>
             </div>
         ) 
     }
@@ -44,25 +64,14 @@ class Action extends React.Component{
 
 class Options extends React.Component{
 
-    constructor(props){
-        super(props)
-        this.removeOptions = this.removeOptions.bind(this)
-    }
 
-
-    removeOptions(){
-        console.log(this.props.option)
-    }
-  
     render(){
         return(
             <div>
-            <button onClick={this.removeOptions}>Remove All</button>
-           
+            <button onClick={this.props.deleteOptions}>Remove All</button>
             {
-                this.props.option.map((option)=><Option key={option} optionText={option} />)
+                this.props.options.map((option)=><Option key={option} optionText={option} />)
             }
-          
             </div>
 
         )
