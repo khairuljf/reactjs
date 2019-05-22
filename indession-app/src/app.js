@@ -43,6 +43,13 @@ class Action extends React.Component{
 }
 
 class Options extends React.Component{
+
+    constructor(props){
+        super(props)
+        this.removeOptions = this.removeOptions.bind(this)
+    }
+
+
     removeOptions(){
         console.log(this.props.option)
     }
@@ -50,7 +57,7 @@ class Options extends React.Component{
     render(){
         return(
             <div>
-            <button onClick={this.removeOptions.bind(this)}>Remove All</button>
+            <button onClick={this.removeOptions}>Remove All</button>
            
             {
                 this.props.option.map((option)=><Option key={option} optionText={option} />)
