@@ -10,7 +10,7 @@ class IndesionApp extends React.Component{
                 <Header title ={title} subtitle = {subtitle} />
                 <Action />
                 <Options   option={options} />
-                <AddOption />
+                <AddOption option={options}/>
             </div>
         )
     }
@@ -31,18 +31,31 @@ class Action extends React.Component{
     WhatFunc(){
         alert('What shoud I do?')
     };
+   
     render(){
-        return <button  onClick={this.WhatFunc}>What Shoud I do?</button>
+        return (
+            <div>
+            <button  onClick={this.WhatFunc}>What Shoud I do?</button>
+            
+            </div>
+        ) 
     }
 }
 
 class Options extends React.Component{
+    removeOptions(){
+        console.log(this.props.option)
+    }
+  
     render(){
         return(
             <div>
+            <button onClick={this.removeOptions.bind(this)}>Remove All</button>
+           
             {
                 this.props.option.map((option)=><Option key={option} optionText={option} />)
             }
+          
             </div>
 
         )
@@ -60,10 +73,26 @@ class Option extends React.Component{
 }
 
 class AddOption extends React.Component{
+   
+
+    addFormSubmit(e){
+        e.preventDefault()
+        const option = e.target.elements.option.value.trim()
+
+        if(option){
+            alert(option);
+            e.target.elements.option.value = ''
+        }
+
+    }
+
     render(){
         return (
             <div>
-                AddOption component here
+              <form onSubmit={this.addFormSubmit}>
+                <input type="text" name="option" />
+                <button type="submit"> Add</button>
+              </form>
             </div>
         )
     }
