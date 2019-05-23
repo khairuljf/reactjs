@@ -8,7 +8,7 @@ class IndesionApp extends React.Component{
         this.handleAddOption=this.handleAddOption.bind(this)
         
         this.state = {
-            options:['one', 'two', 'three']
+            options:[]
         };
     }
 
@@ -28,6 +28,13 @@ class IndesionApp extends React.Component{
     }
 
     handleAddOption(option){
+
+        if(!option){
+            return 'Enter a valid value for add'
+        }else if(this.state.options.indexOf(option)>-1){
+            return 'The option already exists'
+        }
+
         this.setState((prevState)=>{
             return {
                 options:prevState.options.concat([option])
@@ -112,19 +119,25 @@ class AddOption extends React.Component{
     constructor(props){
             super(props)
             this.addFormSubmit = this.addFormSubmit.bind(this)
+            this.state={
+                error: undefined
+            }
     }
     addFormSubmit(e){
         e.preventDefault()
         const option = e.target.elements.option.value.trim()
-        if(option){
-            this.props.addOption(option)
-            e.target.elements.option.value = ''
-        }
+        const error  = this.props.addOption(option)
+
+        this.setState(()=>{
+            return {error}
+        })
+
     }
 
     render(){
         return (
             <div>
+            {this.state.error && <p>{this.state.error}</p>}
               <form onSubmit={this.addFormSubmit}>
                 <input type="text" name="option" />
                 <button type="submit"> Add</button>
