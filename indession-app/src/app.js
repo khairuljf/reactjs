@@ -5,6 +5,8 @@ class IndesionApp extends React.Component{
         super(props)
         this.handleDeleteOptions=this.handleDeleteOptions.bind(this)
         this.handleWhatShould=this.handleWhatShould.bind(this)
+        this.handleAddOption=this.handleAddOption.bind(this)
+        
         this.state = {
             options:['one', 'two', 'three']
         };
@@ -21,11 +23,18 @@ class IndesionApp extends React.Component{
 
     handleWhatShould(){
        const randomNumber =  Math.floor(Math.random() * this.state.options.length);
-
         const option = this.state.options[randomNumber]
-
        alert(option)
     }
+
+    handleAddOption(option){
+        this.setState((prevState)=>{
+            return {
+                options:prevState.options.concat([option])
+            }
+        })
+    }
+
 
     render(){
         const title = 'Indecision';
@@ -39,7 +48,7 @@ class IndesionApp extends React.Component{
                 whatShoud={this.handleWhatShould}
                 />
                 <Options   options={this.state.options}  deleteOptions={this.handleDeleteOptions} />
-                <AddOption option={this.state.options}/>
+                <AddOption addOption ={this.handleAddOption} />
             </div>
         )
     }
@@ -100,16 +109,17 @@ class Option extends React.Component{
 
 class AddOption extends React.Component{
    
-
+    constructor(props){
+            super(props)
+            this.addFormSubmit = this.addFormSubmit.bind(this)
+    }
     addFormSubmit(e){
         e.preventDefault()
         const option = e.target.elements.option.value.trim()
-
         if(option){
-            alert(option);
+            this.props.addOption(option)
             e.target.elements.option.value = ''
         }
-
     }
 
     render(){
