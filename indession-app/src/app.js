@@ -4,6 +4,7 @@ class IndesionApp extends React.Component{
     constructor(props){
         super(props)
         this.handleDeleteOptions=this.handleDeleteOptions.bind(this)
+        this.handleWhatShould=this.handleWhatShould.bind(this)
         this.state = {
             options:['one', 'two', 'three']
         };
@@ -18,6 +19,14 @@ class IndesionApp extends React.Component{
         console.log('Deleted')
     }
 
+    handleWhatShould(){
+       const randomNumber =  Math.floor(Math.random() * this.state.options.length);
+
+        const option = this.state.options[randomNumber]
+
+       alert(option)
+    }
+
     render(){
         const title = 'Indecision';
         const subtitle = 'Put your life in the hands of computer';
@@ -25,7 +34,10 @@ class IndesionApp extends React.Component{
         return (
             <div>
                 <Header title ={title} subtitle = {subtitle} />
-                <Action hasOptions= {this.state.options.length>0} />
+                <Action 
+                hasOptions= {this.state.options.length>0}
+                whatShoud={this.handleWhatShould}
+                />
                 <Options   options={this.state.options}  deleteOptions={this.handleDeleteOptions} />
                 <AddOption option={this.state.options}/>
             </div>
@@ -45,15 +57,13 @@ class Header extends React.Component{
 }
 
 class Action extends React.Component{
-    WhatFunc(){
-        alert('What shoud I do?')
-    };
+
    
     render(){
         return (
             <div>
             <button 
-             onClick={this.WhatFunc}
+             onClick={this.props.whatShoud}
              disabled={!this.props.hasOptions}
              >
             What Shoud I do?</button>
