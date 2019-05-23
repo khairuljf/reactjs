@@ -13,11 +13,7 @@ class IndesionApp extends React.Component{
     }
 
     handleDeleteOptions(){
-        this.setState(()=>{
-            return {
-                options:[]
-            }
-        })
+        this.setState(()=>({options:[]}))
         console.log('Deleted')
     }
 
@@ -35,11 +31,7 @@ class IndesionApp extends React.Component{
             return 'The option already exists'
         }
 
-        this.setState((prevState)=>{
-            return {
-                options:prevState.options.concat([option])
-            }
-        })
+        this.setState((prevState)=>({ options:prevState.options.concat([option])}))
     }
 
 
@@ -168,11 +160,10 @@ class AddOption extends React.Component{
     addFormSubmit(e){
         e.preventDefault()
         const option = e.target.elements.option.value.trim()
+        e.target.elements.option.value=''
         const error  = this.props.addOption(option)
-
-        this.setState(()=>{
-            return {error}
-        })
+    
+        this.setState(()=>({error}))
 
     }
 
