@@ -1,4 +1,6 @@
 
+
+  
 class IndesionApp extends React.Component{
 
     constructor(props){
@@ -9,8 +11,18 @@ class IndesionApp extends React.Component{
         this.handleDeleteOption = this.handleDeleteOption.bind(this)
         
         this.state = {
-            options:[]
+            options:props.options
         };
+    }
+
+    componentDidMount(){
+        console.log('Fetch Data')
+    }
+    componentDidUpdate(prevProps, prevState){
+        if(prevProps.options.length !== prevState.options.length){
+            console.log('Data changed')
+        }
+
     }
 
 
@@ -66,6 +78,10 @@ class IndesionApp extends React.Component{
         )
     }
 }
+
+IndesionApp.defaultProps = {
+    options:[]
+  };
 
 const Header = (props) =>(
     <div>
