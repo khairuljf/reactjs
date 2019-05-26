@@ -16,11 +16,25 @@ class IndesionApp extends React.Component{
     }
 
     componentDidMount(){
-        console.log('Fetch Data')
+        try {
+            const json  = localStorage.getItem('options')
+            const options = JSON.parse(json)
+
+            if(options){
+                    this.setState(()=>({options}))
+                }
+            
+        } catch (error) {
+                // Do not nothing
+        }
+        
+        
     }
+
     componentDidUpdate(prevProps, prevState){
         if(prevProps.options.length !== prevState.options.length){
-            console.log('Data changed')
+            const json  = JSON.stringify(this.state.options)
+            localStorage.setItem('options', json )
         }
 
     }
