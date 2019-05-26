@@ -1,4 +1,6 @@
-<<<<<<< HEAD
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-=======
->>>>>>> df325de04be1f0cc511570c7992934403adcaaca
+const template = <p>yes</p>
+
+ReactDOM.render(template, document.getElementById('app'))
